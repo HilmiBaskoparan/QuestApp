@@ -50,6 +50,7 @@ public class LikeServiceImpl implements LikeService {
             like.setUser(user);
             like.setPost(post);
             likeRepository.save(like);
+            return like;
         }
         return null;
     }
