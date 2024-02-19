@@ -2,6 +2,7 @@ package com.baskoparan.QuestApp.controllers;
 
 import com.baskoparan.QuestApp.entities.User;
 import com.baskoparan.QuestApp.repos.UserRepository;
+import com.baskoparan.QuestApp.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,52 +12,39 @@ import java.util.Optional;
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     // GET ALL USERS
     @GetMapping
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return userService.getAllUsers();
     }
 
     // CREATE NEW USER
     @PostMapping
     public User createUser(@RequestBody User user) {
-        return userRepository.save(user);
+        return userService.createUser(user);
     }
 
     // UPDATE USER
     @PutMapping("/{userId}")
     public User updateUser(@PathVariable Long userId, @RequestBody User user) {
-        Optional<User> updateUser = userRepository.findById(userId);
-
-        if (updateUser.isPresent()){
-            User foundUser = updateUser.get();
-            foundUser.setUserName(user.getUserName());
-            foundUser.setPassword(user.getPassword());
-            userRepository.save(foundUser);
-            return foundUser;
-        } else {
-            return null;
-        }
-
+        return userService.updateUser(userId, user);
     }
 
     // DELETE USER
     @DeleteMapping("/{userId}")
     public void deleteByUserId(@PathVariable Long userId) {
-        userRepository.deleteById(userId);
+        userService.deleteById(userId);
     }
 
     // FIND BY USERID
     @GetMapping("/{userId}")
     public User findByUserId(@PathVariable Long userId) {
-
-        // Custom Exception
-        return userRepository.findById(userId).orElse(null);
+        return userService.findById(userId);
     }
 }
