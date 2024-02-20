@@ -13,7 +13,7 @@ public interface CommentService {
 
     Comment createComment(CommentCreateRequest commentCreateRequest);
 
-    Comment updateComment(Long commentId, CommentUpdateRequest commentUpdateRequest);
+    Comment updateOneCommentById(Long commentId, CommentUpdateRequest commentUpdateRequest);
 
     void deleteComment(Long commentId);
 

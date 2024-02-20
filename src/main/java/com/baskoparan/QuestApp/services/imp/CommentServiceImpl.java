@@ -57,7 +57,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment updateComment(Long commentId, CommentUpdateRequest commentUpdateRequest) {
+    public Comment updateOneCommentById(Long commentId, CommentUpdateRequest commentUpdateRequest) {
         Optional<Comment> comment = commentRepository.findById(commentId);
         if (comment.isPresent()){
             Comment updateComment = comment.get();
