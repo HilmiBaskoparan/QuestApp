@@ -1,5 +1,5 @@
 import React from "react";
-import {Link, useHistory} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { LockOpen } from "@material-ui/icons";  
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,13 +29,13 @@ const useStyles = makeStyles((theme) => ({
 
 function Navbar() {
     const classes = useStyles();
-    let history = useHistory();
+    let navigate = useNavigate();
 
     const onClick = () => {
       localStorage.removeItem("tokenKey")
       localStorage.removeItem("currentUser")
       localStorage.removeItem("userName")
-      history.go(0)
+      navigate.go(0)
     }
 
     return(

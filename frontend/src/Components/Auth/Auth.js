@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 import {FormControl, InputLabel, Input, Button, FormHelperText} from "@material-ui/core"
-import { useHistory } from "react-router";
+import { useNavigate  } from "react-router";
 
 function Auth() {
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    let history = useHistory();
+    let navigate = useNavigate();
     const handleUsername = (value) => {
         setUsername(value)
     } 
@@ -36,7 +36,7 @@ function Auth() {
         sendRequest(path)
         setUsername("")
         setPassword("")
-        history.go("/auth")
+        navigate.go("/auth")
     }
 
     return(
