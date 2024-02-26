@@ -49,8 +49,9 @@ function Home() {
     } else {
         return(
             <div className = {classes.container}>
-                <PostForm userId = {1} userName = {"ddd"}  refreshPosts = {refreshPosts}/>
-                {postList.map(post => (
+                {localStorage.getItem("currentUser") == null? "":
+                <PostForm userId = {localStorage.getItem("currentUser")} userName = {localStorage.getItem("userName")}  refreshPosts = {refreshPosts}/>}
+                   {postList.map(post => (
                     <Post userId = {post.userId} userName = {post.userName}  title={post.title} text={post.text}></Post>
                 ))}
             </div>
