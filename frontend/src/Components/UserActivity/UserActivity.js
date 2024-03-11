@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,6 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import Post from "../Post/Post";
+import { GetWithAuth } from '../../services/HttpService';
 
 
 const useStyles = makeStyles({
@@ -23,6 +25,9 @@ const useStyles = makeStyles({
   },
   container: {
     maxHeight: 440,
+    minWidth: 100,
+    maxWidth: 800,
+    marginTop: 50,
   },
   appBar: {
     position: 'relative',
@@ -44,13 +49,7 @@ function PopUp(props) {
     const [post, setPost] = useState();
 
     const getPost = () => {
-        fetch("/posts/"+postId, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization" : localStorage.getItem("tokenKey"),
-          },
-        })
+      GetWithAuth("/posts/"+postId)
         .then(res => res.json())
         .then(
             (result) => {
@@ -111,13 +110,7 @@ function UserActivity(props) {
     };
 
    const getActivity = () => {
-    fetch("/users/activity/"+1, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization" : localStorage.getItem("tokenKey"),
-      },
-    })
+    GetWithAuth("/users/activity/"+userId)
     .then(res => res.json())
     .then(
         (result) => {
@@ -153,8 +146,10 @@ function UserActivity(props) {
             {rows.map((row) => {
               return (
                 <Button onClick={() => handleNotification(row[1])}>
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {row[3] + " " + row[0] + " your post"}
+                <TableRow hover role="checkbox" tabIndex={-1} key={row.code} >
+                  <TableCell align="right">
+                  {row[3] + " " + row[0] + " your post"}
+                  </TableCell>
                 </TableRow>
                 </Button>
               );

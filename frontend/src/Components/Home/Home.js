@@ -39,7 +39,7 @@ function Home() {
 
     useEffect(() => {
         refreshPosts()
-    }, [postList])
+    }, [])
 
 
     if(error) {

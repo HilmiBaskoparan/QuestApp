@@ -13,9 +13,7 @@ function App() {
         <Routes>
           <Route exact path="/" component={Home}></Route>
           <Route exact path="/users/:userId" component={User}></Route>
-          <Route exact path="/auth">
-            {localStorage.getItem("currentUser") != null ? <Navigate to="/"/>: <Auth/>}
-          </Route>
+          <Route exact path="/auth" element= {localStorage.getItem("currentUser") != null ? <Navigate to="/"/>: <Auth/>} />
         </Routes>
       </Router>
     </div>
